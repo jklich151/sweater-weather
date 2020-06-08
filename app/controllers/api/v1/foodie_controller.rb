@@ -36,9 +36,13 @@ class Api::V1::FoodieController < ApplicationController
       faraday.headers["user-key"] = ENV['ZOMATO_KEY']
     end
 
-    response_3 = conn_3.get("/api/v2.1/search?entity_id=#{destination}&q=#{search}")
+    response_3 = conn_3.get("/api/v2.1/search?lat=#{lat}&lon=#{lng}&q=#{search}")
 
     json_3 = JSON.parse(response_3.body, symbolize_names: true)
-  require "pry"; binding.pry
+
+    restaurant = json_3[:restaurants][0][:restaurant]
+
+    # name = json_3[:restaurants][0][:restaurant][:name]
+    # address = json_3[:restaurants][0][:restaurant][:location][:address]
   end
 end
