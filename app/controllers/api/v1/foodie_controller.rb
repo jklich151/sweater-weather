@@ -7,7 +7,6 @@ class Api::V1::FoodieController < ApplicationController
     directions_facade = DirectionsFacade.new
     travel_info = directions_facade.directions(origin, destination)
 
-
     lat = travel_info[:end_location][:lat]
     lng = travel_info[:end_location][:lng]
 
@@ -21,8 +20,8 @@ class Api::V1::FoodieController < ApplicationController
     json_2 = JSON.parse(response_2.body, symbolize_names: true)
 
     forecast = json_2
-    # json_2[:main][:temp]
-    # json_2[:weather][0][:description]
+    json_2[:main][:temp]
+    json_2[:weather][0][:description]
     #zomato
 
     conn_3 = Faraday.new(url: "https://developers.zomato.com") do |faraday|
