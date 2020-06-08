@@ -11,17 +11,10 @@ class Api::V1::FoodieController < ApplicationController
     lng = travel_info[:end_location][:lng]
 
     #open weather
-    conn_2 = Faraday.new(url: "https://api.openweathermap.org") do |faraday|
-      faraday.params["appid"] = ENV['OPEN_WEATHER_KEY']
-    end
 
-    response_2 = conn_2.get("/data/2.5/weather?lat=#{lat}&lon=#{lng}&units=imperial")
-
-    json_2 = JSON.parse(response_2.body, symbolize_names: true)
-
-    forecast = json_2
-    json_2[:main][:temp]
-    json_2[:weather][0][:description]
+    destination_weather_facade = DestinationWeatherFacade.new
+    forecast = destination_weather_facade.destination_results(lat, lng)
+    
     #zomato
 
     conn_3 = Faraday.new(url: "https://developers.zomato.com") do |faraday|
