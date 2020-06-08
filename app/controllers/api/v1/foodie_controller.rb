@@ -4,11 +4,11 @@ class Api::V1::FoodieController < ApplicationController
     destination = params[:end]
     search = params[:search]
 
-    directions_facade = DirectionsFacade.new
-    travel_info = directions_facade.directions(origin, destination)
+    directions_facade = DirectionsFacade.new(origin, destination)
+    travel_info = directions_facade.directions
 
-    lat = travel_info[:end_location][:lat]
-    lng = travel_info[:end_location][:lng]
+    lat = directions_facade.lat
+    lng = directions_facade.lng
 
     #open weather
 
