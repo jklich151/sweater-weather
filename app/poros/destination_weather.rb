@@ -1,6 +1,7 @@
 class DestinationWeather
   attr_reader :summary,
-              :temperature
+              :temperature,
+              :id
 
   def initialize(forecast)
     @summary = forecast[:weather][0][:description]

@@ -1,6 +1,7 @@
 class Food
   attr_reader :name,
-              :address
+              :address,
+              :id
 
   def initialize(restaurant)
     @name = restaurant[:name]

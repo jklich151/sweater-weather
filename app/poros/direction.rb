@@ -1,6 +1,7 @@
 class Direction
   attr_reader :travel_time,
-              :end_location
+              :end_location,
+              :id
 
   def initialize(travel_info)
     @travel_info = travel_info
