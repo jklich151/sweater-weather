@@ -4,19 +4,12 @@ class Api::V1::FoodieController < ApplicationController
     destination = params[:end]
     search = params[:search]
 
-    conn = Faraday.new(url: "https://maps.googleapis.com") do |faraday|
-      faraday.params["key"] = ENV['GOOGLE_MAPS_KEY']
-    end
+    directions_facade = DirectionsFacade.new
+    travel_info = directions_facade.directions(origin, destination)
 
-    response = conn.get("/maps/api/directions/json?origin=#{origin}&destination=#{destination}")
 
-    json = JSON.parse(response.body, symbolize_names: true)
-
-    travel_info = json[:routes][0][:legs][0]
-    # travel_time = [:duration][:text]
-    # location = [:end_address]
-    lat = json[:routes][0][:legs][0][:end_location][:lat]
-    lng = json[:routes][0][:legs][0][:end_location][:lng]
+    lat = travel_info[:end_location][:lat]
+    lng = travel_info[:end_location][:lng]
 
     #open weather
     conn_2 = Faraday.new(url: "https://api.openweathermap.org") do |faraday|
