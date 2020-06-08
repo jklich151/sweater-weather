@@ -2,6 +2,7 @@ class Api::V1::FoodieController < ApplicationController
   def show
     origin = params[:start]
     destination = params[:end]
+    search = params[:search]
 
     conn = Faraday.new(url: "https://maps.googleapis.com") do |faraday|
       faraday.params["key"] = ENV['GOOGLE_MAPS_KEY']
@@ -31,11 +32,13 @@ class Api::V1::FoodieController < ApplicationController
     # json_2[:weather][0][:description]
     #zomato
 
-    # conn_3 = Faraday.new(url: "https://api.propublica.org") do |faraday|
-    #   faraday.headers["X-API-KEY"] = '<YOUR API KEY>'
-    # end
-    #
-    # response_3 = conn_3.get("/congress/v1/members/house/#{state}/current.json")
+    conn_3 = Faraday.new(url: "https://developers.zomato.com") do |faraday|
+      faraday.headers["user-key"] = ENV['ZOMATO_KEY']
+    end
 
+    response_3 = conn_3.get("/api/v2.1/search?entity_id=#{destination}&q=#{search}")
+
+    json_3 = JSON.parse(response_3.body, symbolize_names: true)
+  require "pry"; binding.pry
   end
 end
