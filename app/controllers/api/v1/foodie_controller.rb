@@ -14,20 +14,9 @@ class Api::V1::FoodieController < ApplicationController
 
     destination_weather_facade = DestinationWeatherFacade.new
     forecast = destination_weather_facade.destination_results(lat, lng)
-    
+
     #zomato
-
-    conn_3 = Faraday.new(url: "https://developers.zomato.com") do |faraday|
-      faraday.headers["user-key"] = ENV['ZOMATO_KEY']
-    end
-
-    response_3 = conn_3.get("/api/v2.1/search?lat=#{lat}&lon=#{lng}&q=#{search}")
-
-    json_3 = JSON.parse(response_3.body, symbolize_names: true)
-
-    restaurant = json_3[:restaurants][0][:restaurant]
-
-    # name = json_3[:restaurants][0][:restaurant][:name]
-    # address = json_3[:restaurants][0][:restaurant][:location][:address]
+    food_facade = FoodFacade.new
+    restaurant = food_facade.restaurant(lat, lng, search)
   end
 end
