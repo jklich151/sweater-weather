@@ -18,15 +18,24 @@ class Api::V1::FoodieController < ApplicationController
     lng = json[:routes][0][:legs][0][:end_location][:lng]
 
     #open weather
-
     conn_2 = Faraday.new(url: "https://api.openweathermap.org") do |faraday|
       faraday.params["appid"] = ENV['OPEN_WEATHER_KEY']
     end
 
-    response_2 = conn_2.get("/data/2.5/weather?lat=#{lat}&lon=#{lng}")
+    response_2 = conn_2.get("/data/2.5/weather?lat=#{lat}&lon=#{lng}&units=imperial")
 
     json_2 = JSON.parse(response_2.body, symbolize_names: true)
 
-    current_weather = json_2[:weather][0][:main]
+    forecast = json_2
+    # json_2[:main][:temp]
+    # json_2[:weather][0][:description]
+    #zomato
+
+    # conn_3 = Faraday.new(url: "https://api.propublica.org") do |faraday|
+    #   faraday.headers["X-API-KEY"] = '<YOUR API KEY>'
+    # end
+    #
+    # response_3 = conn_3.get("/congress/v1/members/house/#{state}/current.json")
+
   end
 end
