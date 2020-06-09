@@ -6,6 +6,8 @@ class Trail
 
   def initialize(location)
     @location = location
+    @forecast = {summary: summary, temperature: temperature}
+    @trails = trails
   end
 
   def lat
