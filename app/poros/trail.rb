@@ -5,6 +5,7 @@ class Trail
               :trails
 
   def initialize(location)
+    @id = "null"
     @location = location
     @forecast = {summary: summary, temperature: temperature}
     @trails = trails
