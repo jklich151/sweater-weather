@@ -10,12 +10,7 @@ class Api::V1::TrailsController < ApplicationController
     lat = lat_long[:lat]
     lon = lat_long[:lng]
 
-    conn = Faraday.get("https://www.hikingproject.com/data/get-trails") do |faraday|
-      faraday.params["key"] = ENV['HIKING_KEY']
-      faraday.params["lat"] = lat
-      faraday.params["lon"] = lon
-    end
-    json = JSON.parse(conn.body, symbolize_names: true)
+    json = HikingService.new(lat, lon).hiking_info
 
     trails = json[:trails].map do |trail|
       conn = Faraday.get("http://www.mapquestapi.com/directions/v2/route") do |faraday|
