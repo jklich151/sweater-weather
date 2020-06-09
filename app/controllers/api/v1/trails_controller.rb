@@ -7,12 +7,15 @@ class Api::V1::TrailsController < ApplicationController
     weather = WeatherService.new.get_current(lat_long)
     temperature = weather[:current][:temp].to_i
     summary = weather[:current][:weather][0][:description]
+    lat = lat_long[:lat]
+    lon = lat_long[:lng]
 
-    conn = Faraday.new(url: "http://www.mapquestapi.com") do |faraday|
-      faraday.headers[""] = '<YOUR API KEY>'
+    conn = Faraday.get("https://www.hikingproject.com/data/get-trails") do |faraday|
+      faraday.params["key"] = ENV['HIKING_KEY']
+      faraday.params["lat"] = lat
+      faraday.params["lon"] = lon
     end
-
-    response = conn.get("/congress/v1/members/house/#{state}/current.json")
-
+    json = JSON.parse(conn.body, symbolize_names: true)
+    require "pry"; binding.pry
   end
 end
