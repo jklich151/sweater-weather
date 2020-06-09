@@ -16,6 +16,18 @@ class Api::V1::TrailsController < ApplicationController
       faraday.params["lon"] = lon
     end
     json = JSON.parse(conn.body, symbolize_names: true)
-    require "pry"; binding.pry
+
+    trails = json[:trails].map do |trail|
+      conn = Faraday.get("http://www.mapquestapi.com/directions/v2/route") do |faraday|
+        faraday.params["key"] = ENV['MAPQUEST_KEY']
+        faraday.params["from"] = params[:location]
+        faraday.params["to"] = trail[:location]
+      end
+      json = JSON.parse(conn.body, symbolize_names: true)
+      distance_to_trail = json[:route][:distance]
+
+      {name: trail[:name], summary: trail[:summary], difficulty: trail[:difficulty], location: trail[:location], distance_to_trail: distance_to_trail }
+
+    end
   end
 end
