@@ -32,7 +32,7 @@ class Trail
 
   def trails
     hiking_info[:trails].map do |trail|
-    distance_to_trail = MapquestService.new(@location, trail[:location]).get_distance
+      distance_to_trail = MapquestService.new(@location, trail[:location]).get_distance
       {name: trail[:name], summary: trail[:summary], difficulty: trail[:difficulty], location: trail[:location], distance_to_trail: distance_to_trail }
     end
   end
