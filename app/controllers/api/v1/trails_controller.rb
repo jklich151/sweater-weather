@@ -13,13 +13,14 @@ class Api::V1::TrailsController < ApplicationController
     json = HikingService.new(lat, lon).hiking_info
 
     trails = json[:trails].map do |trail|
-      conn = Faraday.get("http://www.mapquestapi.com/directions/v2/route") do |faraday|
-        faraday.params["key"] = ENV['MAPQUEST_KEY']
-        faraday.params["from"] = params[:location]
-        faraday.params["to"] = trail[:location]
-      end
-      json = JSON.parse(conn.body, symbolize_names: true)
-      distance_to_trail = json[:route][:distance]
+      # conn = Faraday.get("http://www.mapquestapi.com/directions/v2/route") do |faraday|
+      #   faraday.params["key"] = ENV['MAPQUEST_KEY']
+      #   faraday.params["from"] = params[:location]
+      #   faraday.params["to"] = trail[:location]
+      # end
+      # json = JSON.parse(conn.body, symbolize_names: true)
+      # distance_to_trail = json[:route][:distance]
+    distance_to_trail = MapquestService.new(location, trail[:location]).get_distance
 
       {name: trail[:name], summary: trail[:summary], difficulty: trail[:difficulty], location: trail[:location], distance_to_trail: distance_to_trail }
 
