@@ -43,7 +43,7 @@ RSpec.describe 'API V1', type: :request do
 
     post '/api/v1/road_trip', params: { origin: origin,
                                         destination: destination,
-                                        api_key: "#{api_key}5555"
+                                        api_key: "#{api_key}x7n5r"
                                       }
 
     expect(response.status).to eq(401)
