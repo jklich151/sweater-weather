@@ -7,7 +7,7 @@ RSpec.describe 'API V1', type: :request do
             password: "password",
             password_confirmation: "password" )
   end
-  it 'post api/v1/road_trip' do
+  it 'post api/v1/road_trip successful' do
     params = {email: "example@email.com", password: "password"}
 
     post '/api/v1/sessions', params: params
@@ -30,5 +30,26 @@ RSpec.describe 'API V1', type: :request do
     expect(json[:travel_time]).to_not be_empty
     expect(json[:current_temp].class).to be(Float)
     expect(json[:summary]).to_not be_empty
+  end
+
+  it 'post api/v1/road_trip unsuccessful' do
+    params = {email: "example@email.com", password: "password"}
+
+    post '/api/v1/sessions', params: params
+
+    api_key = JSON.parse(response.body, symbolize_names: true)[:data][:attributes][:api_key]
+    origin = 'Denver,CO'
+    destination = 'Pueblo,CO'
+
+    post '/api/v1/road_trip', params: { origin: origin,
+                                        destination: destination,
+                                        api_key: "#{api_key}5555"
+                                      }
+
+    expect(response.status).to eq(401)
+
+    json = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json[:message]).to eq('Unauthorized Key')
   end
 end
