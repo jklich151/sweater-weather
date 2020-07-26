@@ -18,13 +18,13 @@ To explore the API and what it can offer locally:
 
 ## Endpoints
 
-### Forecast
+#### Forecast
 
 `GET /api/v1/forecast` with parameters of `location=CITY_NAME`.
 
 The detailed response will include JSON API standard formatted information regarding the current weather for the location, as well as 8 hours of hourly information, and 7 days worth of forecasted weather. All timecodes are in UNIX.
 
-### Current Response
+#### Current Response
 
 ``` 
 "id": null,
