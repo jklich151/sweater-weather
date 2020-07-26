@@ -1,10 +1,10 @@
 # README
 
-##Weather Forecasting API
+## Weather Forecasting API
 
 This is a RESTful API that manages endpoints that provide detailed weather forecasts based on location as well as predictive information based on travel plans based around trip time.
 
-##Setup
+## Setup
 
 To explore the API and what it can offer locally:
 
