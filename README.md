@@ -23,3 +23,35 @@ To explore the API and what it can offer locally:
 `GET /api/v1/forecast` with parameters of `location=CITY_NAME`.
 
 The detailed response will include JSON API standard formatted information regarding the current weather for the location, as well as 8 hours of hourly information, and 7 days worth of forecasted weather. All timecodes are in UNIX.
+
+#### Current Response
+
+`"id": null,
+        "type": "forecast",
+        "attributes": {
+            "current_weather": {
+                "dt": 1587566460,
+                "sunrise": 1587556535,
+                "sunset": 1587603764,
+                "temp": 71.62,
+                "feels_like": 74.3,
+                "humidity": 88,
+                "uvi": 7.98,
+                "visibility": 2816,
+                "weather": [
+                    {
+                        "id": 500,
+                        "main": "Rain",
+                        "description": "light rain",
+                        "icon": "10d"
+                    },
+                    {
+                        "id": 701,
+                        "main": "Mist",
+                        "description": "mist",
+                        "icon": "50d"
+                    }
+                ],
+                "min": 71.33,
+                "max": 85.12
+            }`
