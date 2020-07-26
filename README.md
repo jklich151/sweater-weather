@@ -74,3 +74,50 @@ The detailed response will include JSON API standard formatted information regar
             }
 ```
 
+#### Daily Response
+
+```
+"1587751200": {
+                 "high_temp": 93.87,
+                 "low_temp": 66.11,
+                 "weather": [
+                     {
+                         "id": 800,
+                         "main": "Clear",
+                         "description": "clear sky",
+                         "icon": "01d"
+                     }
+                 ],
+                  "rain": null
+             }
+```
+
+#### Destination Based Forecasting
+
+The API also has an endpoint available to return trip information from an origin city to a destination city with travel time and forecasted weather upon arrival.
+
+`POST /api/v1/road_trip` In the body of this request send the following:
+
+ * `trip_data[origin]`
+ * `trip_data[destination]`
+ * `trip_data[api_key]`
+ 
+A successful response will return
+
+```
+ "data": {
+            "id": null,
+            "type": "road_trip",
+            "attributes": {
+                "origin": "Denver, CO",
+                "destination": "Pueblo, CO",
+                "travel_time": "1 hour 48 mins",
+                "arrival_forcast": [
+                    66.29,
+                    "Clouds"
+                ]
+            }
+        }
+```
+
+Any invalid request will return 400 level status codes.
