@@ -58,3 +58,19 @@ The detailed response will include JSON API standard formatted information regar
             }
 ```
 
+#### Hourly Response
+
+```
+"1587571200": {
+                "temp": 75.24,
+                "weather": [
+                    {
+                        "id": 500,
+                        "main": "Rain",
+                        "description": "light rain",
+                        "icon": "10d"
+                    }
+                ]
+            }
+```
+
